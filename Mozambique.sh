@@ -16,14 +16,14 @@ my_array=()
 #Main Actions
 while read name email city birthdayDay birthdayMonth birthdayYear country
 do
-  fnr=$((fnr+1))
-  if test -z "$name" || test "$country"="country"
+fnr=$((fnr+1))
+if test -z "$name" || test "$country" == "country"
   then
-    echo "" > /dev/null
+    echo "" > "/dev/null"
   else
-    if test "$country"=="$wantedCountry"
+    if test "$country" == $wantedCountry
     then
-      my_array+="$fnr\t$name\t$country"
+      my_array+=("$fnr\t$name\t$country")
     fi
   fi
 done < $inputFile
@@ -31,6 +31,5 @@ done < $inputFile
 echo -e "\n### Here are the end of file results for $wantedCountry: " > $outfile
 for i in "${my_array[@]}"
 do
-  echo -e "$i"
-  echo "looping"
+  echo -e "$i" >> $outfile
 done
